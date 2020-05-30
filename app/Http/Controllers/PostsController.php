@@ -6,7 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
-class PostController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return View::make('post/index');
+    {   
+        $posts = Post::all();
+        return View('posts.index',['posts'=>$posts]);
     }
 
     /**
