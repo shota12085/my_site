@@ -13,4 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'Postscontroller@index');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Auth::routes();
+Route::get('/', 'PostsController@index')->name('posts.index');
+
+// Route::get('/index', 'Postscontroller@index');
+Route::resource('posts', 'PostsController', ['except' => ['index']]);
+
+Route::resource('users', 'UsersController', ['only' => ['show']]);
+
+Route::resource('comments', 'CommentsController', ['only' => ['store','create']])->middleware('auth');
+
