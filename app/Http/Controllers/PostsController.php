@@ -43,6 +43,8 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->content = $request->content;
         $post->user_id = $request->user_id;
+        $post->image = $request->image;
+        
         $post->save();
         return redirect('/');
     }
@@ -93,4 +95,22 @@ class PostsController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        
+        $posts = Post::where('title', 'like', '%'.$keyword.'%')->orwhere('content', 'like', '%'.$keyword.'%')
+        ->paginate(4);
+        if($posts->total() > 0) {   
+            return view('posts.search',[
+                'posts' => $posts,
+                'keyword' => $keyword,
+                ]);
+
+        }else{
+            return redirect('/')->with('error', '検索結果がありませんでした');
+        }
+    }
+    
 }

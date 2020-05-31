@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::get('/', 'PostsController@index')->name('posts.index');
 
-// Route::get('/index', 'Postscontroller@index');
+Route::get('posts/search', 'Postscontroller@search')->name('posts.search');;
 Route::resource('posts', 'PostsController', ['except' => ['index']]);
 
 Route::resource('users', 'UsersController', ['only' => ['show']]);

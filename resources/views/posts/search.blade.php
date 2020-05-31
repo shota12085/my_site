@@ -1,21 +1,9 @@
 @extends('layouts.app')
 
-
 @section('content')
   <div class= "wrapper">
-    <div class = "search">
-      <form action="{{ route('posts.search') }}" method = 'get'>
-        <input id = "search-input" name = "keyword" >
-        <input id = "search-btn" type = "submit" value="検索">
-      @if (session('error'))
-        <p class="text-danger mt-3">
-          {{ session('error') }}
-      </p>
-      @endif
-      </form>
-    </div>
     <div class = "container">
-      Hello World!!
+      検索結果は {{$posts->total()}} 件です
       @foreach ($posts as $post)
       <ul>
         <li>投稿者：<a href="{{ route('users.show', $post->user_id )}}">{{ $post->user->name }}</a></li>
@@ -25,6 +13,8 @@
       </ul> 
       @endforeach
     </div>
-      {{ $posts->links() }}
+    {{ $posts->appends(['keyword' => $keyword ])->links() }}
+
+    
   </div>
 @endsection
