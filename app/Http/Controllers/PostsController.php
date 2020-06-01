@@ -40,12 +40,20 @@ class PostsController extends Controller
     public function store(PostInput $request)
     {
         $post = new Post;
+
         $post->title = $request->title;
         $post->content = $request->content;
         $post->user_id = $request->user_id;
-        $post->image = $request->image;
-        
         $post->save();
+        if(!empty($request->file('image'))){
+
+            foreach ($request->file('image') as $photo) {
+                $image = $photo->store('image');
+                // dd($image);
+                // photosメソッドにより、商品に紐付けられた画像を保存する
+                $post->photos()->create(['image'=> basename($image),'post_id' => $post->id]);
+            }
+        }
         return redirect('/');
     }
 
@@ -58,7 +66,7 @@ class PostsController extends Controller
     public function show(Post $post)
     {
         //
-        $post->load('user','comments');
+        $post->load('user','comments','photos');
         return View('posts.show', ['post'=>$post]);
     }
 
