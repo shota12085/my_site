@@ -97,7 +97,7 @@ h6 {
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 abbr[title],
@@ -273,7 +273,7 @@ select {
 [role=button] {
   cursor: pointer;
 }
-
+.nav
 select {
   word-wrap: normal;
 }
@@ -574,8 +574,6 @@ pre code {
 
 .container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -4492,7 +4490,7 @@ input[type=button].btn-block {
   background-color: #f8fafc;
   border-color: #dee2e6 #dee2e6 #f8fafc;
 }
-
+bg-
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
   border-top-left-radius: 0;
@@ -7069,7 +7067,7 @@ button.bg-dark:focus {
 }
 
 .bg-white {
-  background-color: #fff !important;
+  background-color: #fff;
 }
 
 .bg-transparent {
