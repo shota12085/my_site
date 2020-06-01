@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title',$post->title . ' - My Site')
 @section('content')
   <div class= "wrapper">
     <div class = "container">
@@ -7,8 +7,11 @@
       <ul>
         <li>投稿者：{{ $post->user->name }}</li>
         <li>タイトル：{{ $post->title }}</li>
+        @foreach($post->photos as $photo)
+        <li><img src="{{ asset('image/image/' . $photo->image ) }}" alt="写真" width = 300px height = 200px></li>
+        @endforeach
         <li>内容：{{ $post->content}}</li>
-        <a href="{{ route('comments.create') }}">コメントする</a>
+
       </ul> 
     </div>
 

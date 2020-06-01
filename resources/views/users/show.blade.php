@@ -1,10 +1,8 @@
 @extends('layouts.app')
-
+@section('title',$user->name . ' - mypage')
 @section('content')
   <div class= "wrapper">
     <div class = "container">
-      Hello World!!
-
       <div>投稿者：{{ $user->name }}</div>
       @foreach ($user->posts as $post)
       <ul>
