@@ -15,7 +15,7 @@ $(function(){
         let html = `<div class='image-top' data-id = "${data.files.length}" data-name="${file.name}">
       <div class=' image-content'>
       <div class='image-list'>
-      <img src=${image} width="120" height="100" >
+      <img src=${image} width="138.5" height="120" >
       </div>
       </div>
       <div class='image-delete'>
@@ -57,3 +57,9 @@ $(function(){
     }
   });
 });
+
+// 写真削除
+function deletePost(e) {
+  document.getElementById('form_' + e.dataset.id).submit();  
+}
+
