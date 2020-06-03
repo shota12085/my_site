@@ -28,13 +28,23 @@
       <div class = "show-title">
         {{ $post->title }}
       </div>
+      <?php if($count > 0): ?>
+      <ul class = "show-image">
+        <li class = "show-imagelist"><img src="{{ asset('storage/' .$photo->image ) }}" id = "bigPic" alt="写真" width = 600px height = 300px></li>
+      </ul>
       <ul class = "show-image">
       @foreach($post->photos as $photo)
         <li class = "show-imagelist">
-            <img src="{{ asset('storage/' .$photo->image ) }}" alt="写真" width = 300px height = 200px>
+            <img src="{{ asset('storage/' .$photo->image ) }}" class = "thumb" alt="写真" width = 150px height = 100px>
         </li>
         @endforeach
       </ul>
+      <?php endif; ?>
+      <div id = "modal" class = "displayNone">
+        <p id = "close">閉じる</p>
+        <img src="" id = "modalImage" alt="写真" width = 760px height = 600px>
+      </div>
+
       <div class = "show-content">
         {{ $post->content}}
       </div>
@@ -63,9 +73,12 @@
         <button type="submit" class="btn btn-primary">コメントする</button>
       </form>
       @endif
-      
+      <?php if(count($post->comments) > 0): ?>
       <div class = comment-list>
         <p class = "comment-main">コメント一覧</p>
+      <?php else: ?>
+        <p class = "comment-not">コメントはありません</p>
+      <?php endif; ?>
         @foreach ($post->comments as $comment)
         <div class = "comment-content">
           <div class = "comment-flex">

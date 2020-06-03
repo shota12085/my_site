@@ -68,7 +68,10 @@ class PostsController extends Controller
     {
         //
         $post->load('user','comments','photos');
-        return View('posts.show', ['post'=>$post]);
+        $photo = $post->photos->first();
+        $count = count($post->photos);
+        // dd($photo);
+        return View('posts.show', compact('post','photo','count'));
     }
 
     /**
