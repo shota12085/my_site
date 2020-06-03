@@ -24,6 +24,7 @@ Route::get('posts/search', 'Postscontroller@search')->name('posts.search');;
 Route::resource('posts', 'PostsController', ['except' => ['index']]);
 
 Route::resource('users', 'UsersController', ['only' => ['show']]);
+Route::resource('photos', 'PhotosController', ['only' => ['edit','update','destroy']]);
 
 Route::resource('comments', 'CommentsController', ['only' => ['store','create']])->middleware('auth');
 

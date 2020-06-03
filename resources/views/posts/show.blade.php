@@ -8,11 +8,12 @@
         <li>投稿者：{{ $post->user->name }}</li>
         <li>タイトル：{{ $post->title }}</li>
         @foreach($post->photos as $photo)
-        <li><img src="{{ asset('image/' . $photo->image ) }}" alt="写真" width = 300px height = 200px></li>
+        <li><img src="{{ asset('storage/' .$photo->image ) }}" alt="写真" width = 300px height = 200px></li>
         @endforeach
         <li>内容：{{ $post->content}}</li>
 
       </ul> 
+      <a href="{{route('posts.edit',$post->id)}}">編集</a>
     </div>
 
     <div class = "comment">

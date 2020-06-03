@@ -6,6 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Http\Requests\PostInput;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -48,7 +49,7 @@ class PostsController extends Controller
         if(!empty($request->file('image'))){
 
             foreach ($request->file('image') as $photo) {
-                $image = $photo->store('image');
+                $image = $photo->store('public');
                 // dd($image);
                 // photosメソッドにより、商品に紐付けられた画像を保存する
                 $post->photos()->create(['image'=> basename($image),'post_id' => $post->id]);
@@ -78,7 +79,9 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $post->load('user','photos');
+        $count = count($post->photos);
+        return View('posts.edit',compact('post','count'));
     }
 
     /**
@@ -89,8 +92,22 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Post $post)
-    {
-        //
+    {   
+        // dd($request->file('image'));
+        // dd($request);
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+        if(!empty($request->file('image'))){
+
+            foreach ($request->file('image') as $photo) {
+                $image = $photo->store('public');
+                // dd($image);
+                // photosメソッドにより、商品に紐付けられた画像を保存する
+                $post->photos()->create(['image'=> basename($image),'post_id' => $post->id]);
+            }
+        }
+        return redirect(route('posts.show',$post->id));
     }
 
     /**
@@ -108,8 +125,8 @@ class PostsController extends Controller
     {
         $keyword = $request->input('keyword');
         
-        $posts = Post::where('title', 'like', '%'.$keyword.'%')->orwhere('content', 'like', '%'.$keyword.'%')
-        ->paginate(4);
+        $posts = Post::latest()->where('title', 'like', '%'.$keyword.'%')->orwhere('content', 'like', '%'.$keyword.'%')
+        ->paginate(5);
         if($posts->total() > 0) {   
             return view('posts.search',[
                 'posts' => $posts,
