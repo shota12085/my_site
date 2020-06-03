@@ -12,24 +12,24 @@ $(function(){
       fileReader.readAsDataURL(file);
       fileReader.onload = function(){
         let image = fileReader.result
-        let html = `<div class='image-top' data-id = "${data.files.length}" data-name="${file.name}">
-      <div class=' image-content'>
-      <div class='image-list'>
-      <img src=${image} width="138.5" height="120" >
-      </div>
-      </div>
-      <div class='image-delete'>
-      <div class='image-delete__btn'>削除</div>
-      </div>
-      </div>`
+        let html = `<div class='image-top'>
+                      <div class=' image-content'>
+                        <div class='image-list'>
+                          <img src=${image} width="138.5" height="120" >
+                        </div>
+                      </div>
+                      <div class='image-delete'>
+                        <div class='image-delete__btn'>削除</div>
+                      </div>
+                    </div>`
       $(".image-up").append(html);
       
       }
     })
   })
+  
   $(document).on("click", ".image-delete__btn", function(){
     let imageDelete =  $(this).parent().parent();
-    let dataDelete = $(imageDelete).data('id');
     let dataName = $(imageDelete).data('name');
     if(fileSet.files.length==1){
       $('input[type=file]').val(null)
@@ -56,10 +56,79 @@ $(function(){
       $(fileSet).hide();
     }
   });
-});
+  
+  $(document).on('click',".form-delete",function(){
+    let id = $(this).data('id');
+    let del = $(this).parents('.image-top');
+    $(del).remove();
+    $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      url: "/photos/" + id,
+      type: "POST",
+      data: {"id":id,"_method": "DELETE"}
+    });
 
-// 写真削除
-function deletePost(e) {
-  document.getElementById('form_' + e.dataset.id).submit();  
-}
+    let num = $(".image-top").length
+    let html = `<label class = "label-create" for="form-image">image</label>
+                <input type="file" name="image[]" class = "form-image add-form" id="form-image" multiple="multiple">`
 
+    if(num == 3){
+      $("#form-append").append(html);
+
+      let fileSet = document.querySelector('input[type=file]');
+      $(fileSet).on('change', function(){
+      files = $(fileSet).prop('files')[0];
+      $.each(fileSet.files, function(i, file){
+        data.items.add(file)
+        fileSet.files = data.files
+        fileReader.readAsDataURL(file);
+        fileReader.onload = function(){
+          let image = fileReader.result
+          let html = `<div class='image-top'">
+                        <div class=' image-content'>
+                          <div class='image-list'>
+                            <img src=${image} width="138.5" height="120" >
+                          </div>
+                        </div>
+                        <div class='image-delete'>
+                          <div class='add-btn'>削除</div>
+                        </div>
+                      </div>`
+            $(".image-up").append(html);
+          }
+        })
+      })
+      $(document).on("click", ".add-btn", function(){
+        let imageDelete =  $(this).parent().parent();
+        let dataName = $(imageDelete).data('name');
+        if(fileSet.files.length==1){
+          $('input[type=file]').val(null)
+          data.clearData();
+          } else {
+            $.each(fileSet.files, function(i,input){
+              if(input.name == dataName){
+                data.items.remove(i)
+              }
+            })
+          }
+          imageDelete.remove();
+          fileSet.files = data.files
+          
+          let num = $(".image-top").length
+          if(num==3){
+            $(fileSet).show();
+          }
+      })
+      $(document).on("change", "#form-image", function(){
+        let Num = $(".image-top").length + 1
+        if(Num==4){
+          $(fileSet).hide();
+        }
+      });
+    }
+  });
+})

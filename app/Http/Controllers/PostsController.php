@@ -80,7 +80,8 @@ class PostsController extends Controller
     public function edit(Post $post)
     {
         $post->load('user','photos');
-        return View('posts.edit',['post'=>$post]);
+        $count = count($post->photos);
+        return View('posts.edit',compact('post','count'));
     }
 
     /**
@@ -92,6 +93,7 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {   
+        // dd($request->file('image'));
         // dd($request);
         $post->title = $request->title;
         $post->content = $request->content;

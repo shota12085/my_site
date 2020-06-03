@@ -155,7 +155,7 @@
 .image-top{
   border: 0.5px solid #fff;
 }
-.image-delete__btn{
+.image-delete__btn,.add-btn{
   background-color: #6cb2eb;
   color: white;
   padding: 0 5px;

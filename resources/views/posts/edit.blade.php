@@ -40,7 +40,7 @@
               <div class=' image-content'>
                 <div class='image-list'>
                 <img src="{{ asset('storage/' . $photo->image ) }}" alt="写真" width = 138.5px height = 120px>
-                <a href="#" data-id="{{ $photo->id }}" onclick="deletePost(this);" class="form-delete">削除</a>
+                <a href="#" data-id="{{ $photo->id }}"  class="form-delete">削除</a>
 
                 </div>
               </div>
@@ -48,10 +48,12 @@
             @endforeach
           </div>
           <div class = "form-flex">
-            <div class="form-group">
-              
+            <div class="form-group" id = "form-append">
+              <?php if($count != 4): ?>
               <label class = "label-create" for="form-image">image</label>
               <input type="file" name="image[]" class = "form-image" id="form-image" multiple="multiple">
+              <?php else: ?>
+              <?php endif; ?>
             </div>
             <div class="form-group">
               <input type = "hidden" name = "user_id" value = "{{ Auth::id() }}" >
@@ -59,7 +61,7 @@
             </div>
           </div>
         </form>
-      <form action="{{ action('PhotosController@destroy', $photo->id) }}" id="form_{{ $photo->id }}" method="post" style="display:inline">
+      <form action="{{ action('PhotosController@destroy', $photo->id) }}" id="form_{{ $photo->id }}"class = "delete-form" method="post" style="display:inline">
         @csrf
         @method('delete')
       </form>
