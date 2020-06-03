@@ -117,8 +117,10 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
-    {
-        //
+    {   
+        $del = $post->load('user','photos');
+        $del->delete();
+        return redirect('/')->with('message', '投稿を削除しました');
     }
 
     public function search(Request $request)
