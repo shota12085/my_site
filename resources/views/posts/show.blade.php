@@ -16,6 +16,7 @@
           </a>
         <a href="{{ route('users.show', $post->user_id )}}" class = "show-username">{{ $post->user->name }}</a>
         </div>
+        <?php if(Auth::id() == $post->user_id): ?>
         <div class = "show-edit">
           <a href="{{route('posts.edit',$post->id)}}" class = "show-editlink">編集</a>
           <form action="{{ action('PostsController@destroy', $post->id) }}" method="post" style="display:inline">
@@ -24,6 +25,7 @@
             <input type="submit" class = "show-delete" value = "削除">
           </form>
         </div>
+        <?php endif; ?>
       </div>
       <div class = "show-title">
         {{ $post->title }}
@@ -44,10 +46,7 @@
         <p id = "close">閉じる</p>
         <img src="" id = "modalImage" alt="写真" width = 760px height = 600px>
       </div>
-
-      <div class = "show-content">
-        {{ $post->content}}
-      </div>
+      <div class = "show-content">{{ $post->content}}</div>
       
     </div>
     

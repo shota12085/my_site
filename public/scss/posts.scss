@@ -104,6 +104,8 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   margin-bottom: 5px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 .content-center{
   text-align: right;
@@ -234,6 +236,8 @@
   background-color:rgba(255,255,255,0.4);
   padding: 20px 20px;
   font-size: 18px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 #modal {
   background-color: rgba(0,0,0,0.2);
@@ -278,7 +282,7 @@
 .comment-content{
   width: 500px;
   margin: 0 auto;
-  padding: 20px 20px 5px;
+  padding: 20px 20px;
   overflow: scroll;
   max-height: 150px;
   background-color:rgba(255,255,255,0.4);
@@ -299,5 +303,6 @@
 .comment-content__show{
   padding: 5px 10px;
   overflow-wrap: break-word;
-  border-bottom: 2px solid #404040;
+  white-space: pre-wrap;
+  border-bottom: 2px solid #808080;
 }
