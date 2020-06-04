@@ -25,7 +25,7 @@ class PostInput extends FormRequest
     {
         return [
             'title'   => ['required','min:1','max:100'],
-            'content' => ['required','min:1','max:255'],
+            'content' => ['required','min:1','max:800'],
             'user_id' => ['required','numeric'],
         ];
     }
@@ -37,7 +37,7 @@ class PostInput extends FormRequest
             'title.max'       => 'タイトルは100字以内でお願いします',
             'content.required'=> '内容を入力してください',
             'content.min'     => '内容は1字以上でお願いします',
-            'content.max'     => '冊数は255字以内でお願いします',
+            'content.max'     => '文字数は800字以内でお願いします',
             'user_id.required'=> 'ログイン処理をしてください'
         ];
     }

@@ -83,7 +83,6 @@ class PhotosController extends Controller
     {   
         
         $photo = Photo::findOrFail($id);
-        // dd($photo->image);
         $path = public_path('image') . '/' . basename($photo->image);
         Storage::delete('public/' . $photo->image);
         $photo->delete();

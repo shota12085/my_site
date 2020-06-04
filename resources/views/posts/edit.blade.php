@@ -61,10 +61,6 @@
             </div>
           </div>
         </form>
-      <form action="{{ action('PhotosController@destroy', $photo->id) }}" id="form_{{ $photo->id }}"class = "delete-form" method="post" style="display:inline">
-        @csrf
-        @method('delete')
-      </form>
     </div>
   </div>
 </div>

@@ -68,7 +68,10 @@ class PostsController extends Controller
     {
         //
         $post->load('user','comments','photos');
-        return View('posts.show', ['post'=>$post]);
+        $photo = $post->photos->first();
+        $count = count($post->photos);
+        // dd($photo);
+        return View('posts.show', compact('post','photo','count'));
     }
 
     /**
@@ -117,8 +120,10 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
-    {
-        //
+    {   
+        $del = $post->load('user','photos');
+        $del->delete();
+        return redirect('/')->with('message', '投稿を削除しました');
     }
 
     public function search(Request $request)
