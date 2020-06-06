@@ -50,21 +50,10 @@ class UsersController extends Controller
     public function show(User $user)
     {   
         $count = Post::where('user_id',$user->id)->count();
-        // $posts = Post::where('user_id',$user->id)->paginate(5);
-        $posts = Post::where('user_id',$user->id)->get();
-        $photo = $posts->load('photos');
-        $sa = $photo->groupBy('post_id');
-        $ma = $sa
-        // $ma = $sa[];
-
-
-
-        // $user->load('posts');
-        // $photo = Photo::where('post_id','posts.id')->get();
+        $posts = Post::latest()->where('user_id',$user->id)->paginate(5);
         $photos = DB::table('users')->where('users.id',$user->id)->join('posts', 'users.id' , '=' , 'posts.user_id')
                     ->leftJoin('photos', 'posts.id' , '=' , 'photos.post_id')
-                    ->select('posts.id','posts.title','posts.content','posts.created_at','photos.image')->paginate(5);
-                    dd($sa);
+                    ->select('posts.id','posts.title','posts.content','photos.image')->get();
         return View('users.show',compact('user','count','photos','posts'));
     }
 

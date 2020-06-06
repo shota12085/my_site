@@ -1,3 +1,19 @@
+.user-show{
+  text-align: center;
+}
+.user-name{
+  padding: 20px 20px 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+.count{
+  font-size: 16px;
+  
+}
+.user-image{
+  border-radius: 50%;
+}
+
 .user-content{
   padding-bottom: 30px;
 }
@@ -13,4 +29,9 @@
 .show-created{
   width: 30%;
   font-size: 18px;
+}
+.show-link{
+  text-align: right;
+  padding: 10px 30px 0 0;
+  font-size: 16px;
 }
