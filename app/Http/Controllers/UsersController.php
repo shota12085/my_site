@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Post;
+use App\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -46,8 +49,23 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {   
-        $user->load('posts');
-        return View('users.show',['user'=> $user]);
+        $count = Post::where('user_id',$user->id)->count();
+        // $posts = Post::where('user_id',$user->id)->paginate(5);
+        $posts = Post::where('user_id',$user->id)->get();
+        $photo = $posts->load('photos');
+        $sa = $photo->groupBy('post_id');
+        $ma = $sa
+        // $ma = $sa[];
+
+
+
+        // $user->load('posts');
+        // $photo = Photo::where('post_id','posts.id')->get();
+        $photos = DB::table('users')->where('users.id',$user->id)->join('posts', 'users.id' , '=' , 'posts.user_id')
+                    ->leftJoin('photos', 'posts.id' , '=' , 'photos.post_id')
+                    ->select('posts.id','posts.title','posts.content','posts.created_at','photos.image')->paginate(5);
+                    dd($sa);
+        return View('users.show',compact('user','count','photos','posts'));
     }
 
     /**
