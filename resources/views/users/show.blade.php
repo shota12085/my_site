@@ -10,9 +10,12 @@
         <img class = "user-image" src = "{{ asset('storage/default.jpg') }}" width = 150 height = 150>
       <?php endif; ?>
       <div class = "user-name">{{ $user->name }}</div>
+      <?php if(Auth::id()== $user->id): ?> 
+      <a class = "user-edit" href = "{{ route('users.edit' , $user->id) }}">Edit Profile</a>
+      <?php endif; ?>
       <div class = "count"><?php echo $count . "件の投稿をしています" ?></div>
     </div>
-
+    <?php if($count > 0): ?>
     <div class = "show-main">
       @foreach ($posts as $index=>$post)
       <div class = "user-content">
@@ -25,6 +28,11 @@
       </div>
       @endforeach
     </div>
+    <?php else: ?>
+    <div class = "show-main">
+      投稿はありません
+    </div>
+    <?php endif; ?>
       <div class = "pagination">
         {{$posts->links()}}
       </div>

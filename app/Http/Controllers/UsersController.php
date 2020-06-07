@@ -7,6 +7,7 @@ use App\Post;
 use App\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -63,9 +64,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return View('users.edit',compact('user'));
     }
 
     /**
@@ -75,9 +76,25 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, User $user)
+    {   
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if(!empty($request->file('image'))){
+            if($user->image){
+                Storage::delete('public/' . $user->image);
+                $photo = $request->file('image');
+                $image = $photo->store('public');
+                $user->image = basename($image);
+            }else{
+                $photo = $request->file('image');
+                $image = $photo->store('public');
+                $user->image = basename($image);
+            }
+        }
+        $user->update();
+
+        return redirect(route('users.show', $user->id));
     }
 
     /**
