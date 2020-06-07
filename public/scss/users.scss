@@ -1,0 +1,48 @@
+.user-show{
+  text-align: center;
+}
+.user-name{
+  padding: 20px 20px 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+.user-edit{
+  display: block;
+  width: 200px;
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+  padding: 5px 15px;
+  background-color: skyblue;
+  border-radius: 20px;
+  margin: 0 auto 10px;
+}
+.count{
+  font-size: 16px;
+  
+}
+.user-image{
+  border-radius: 50%;
+}
+
+.user-content{
+  padding-bottom: 30px;
+}
+.user-flex{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.show-title--width{
+  width: 70%;
+  margin-right: 10px;
+}
+.show-created{
+  width: 30%;
+  font-size: 18px;
+}
+.show-link{
+  text-align: right;
+  padding: 10px 30px 0 0;
+  font-size: 16px;
+}
