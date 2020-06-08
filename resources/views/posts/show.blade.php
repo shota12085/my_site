@@ -40,29 +40,30 @@
     </ul>
       <div class = "show-link"><a href="{{ $post->path }}">動画を見る</a></div>
       <ul class = "show-image">
-      <?php if($count > 1): ?>
-      @foreach($post->photos as $photo)
-        <li class = "show-imagelist">
+        <?php if($count > 1): ?>
+          @foreach($post->photos as $photo)
+          <li class = "show-imagelist">
             <img src="{{ asset('storage/' .$photo->image ) }}" data-name = "{{ asset('storage/' .$photo->image ) }}" class = "thumb" alt="写真" width = 150px height = 100px>
-        </li>
-        @endforeach
-      <?php endif; ?>
-      </ul>
-      <?php endif; ?>
-      <?php if($post->path): ?>
-      <?php endif; ?>
-      <div id = "modal" class = "displayNone">
-        <p id = "close">閉じる</p>
-        <img src="" id = "modalImage" alt="写真" width = 760px height = 600px>
-      </div>
-      <div class = "show-content">{{ $post->content}}</div>
-      
-    </div>
-    
-    <div class = "comment">
-      @if ($errors->any())
-      <div class="alert alert-danger">
-        <ul>
+          </li>
+          @endforeach
+          <?php endif; ?>
+        </ul>
+        <?php endif; ?>
+        <?php if($post->path): ?>
+          <?php endif; ?>
+          <div id = "modal" class = "displayNone">
+            <p id = "close">閉じる</p>
+            <img src="" id = "modalImage" alt="写真" width = 760px height = 600px>
+          </div>
+          <div class = "content-created--right"><?php echo date('Y年n月j日 H時i分', strtotime($post->created_at))?></div>
+          <div class = "show-content">{{ $post->content}}</div>
+          
+        </div>
+        
+        <div class = "comment">
+          @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
           @foreach ($errors->all() as $error)
           <li>{{ $error }}</li>
           @endforeach
@@ -91,7 +92,7 @@
         <div class = "comment-content">
           <div class = "comment-flex">
             <div class = "comment-user"><a href="{{ route('users.show',$comment->user_id )}}">{{ $comment -> user -> name }}</a></div>
-            <div class = "comment-created">{{ $comment -> created_at }}</div>
+            <div class = "comment-created"><?php echo date('Y年n月j日 H時i分', strtotime($comment->created_at))?></div>
           </div>
           <div class = "comment-content__show">{{ $comment -> comment }}</div>
         </div>

@@ -65,12 +65,25 @@
   margin: 20px auto;
   background-color:rgba(255,255,255,0.5);
 }
-.content-user{
+.content-flex{
+  display: flex;
+  justify-content: space-between;
   width: 100%;
+}
+.content-user{
+  width: 66%;
   font-weight: bold;
   font-size: 16px;
   text-align: left;
   padding: 0 20px 3px;
+}
+.content-created{
+  width: 34%;
+}
+.content-created--right{
+  text-align: right;
+  font-size: 18px;
+  padding-right: 30px;
 }
 .content{
   display: flex;
@@ -295,10 +308,10 @@
 }
 .comment-user{
   font-size: 20px;
-  width: 65%;
+  width: 60%;
 }
 .comment-created{
-  width: 35%;
+  width: 40%;
   padding-right: 20px;
 }
 .comment-content__show{
