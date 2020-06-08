@@ -32,15 +32,24 @@
       </div>
       <?php if($count > 0): ?>
       <ul class = "show-image">
+      <?php if($post->path): ?>
+        <li class = "show-imagelist"><a href="{{ $post->path }}" class = "imagelink"><img src="{{ asset('storage/' .$photo->image ) }}" id = "bigPic" alt="写真" width = 600px height = 300px></a></li>
+      <?php else: ?>  
         <li class = "show-imagelist"><img src="{{ asset('storage/' .$photo->image ) }}" id = "bigPic" alt="写真" width = 600px height = 300px></li>
-      </ul>
+      <?php endif; ?>
+    </ul>
+      <div class = "show-link"><a href="{{ $post->path }}">動画を見る</a></div>
       <ul class = "show-image">
+      <?php if($count > 1): ?>
       @foreach($post->photos as $photo)
         <li class = "show-imagelist">
-            <img src="{{ asset('storage/' .$photo->image ) }}" class = "thumb" alt="写真" width = 150px height = 100px>
+            <img src="{{ asset('storage/' .$photo->image ) }}" data-name = "{{ asset('storage/' .$photo->image ) }}" class = "thumb" alt="写真" width = 150px height = 100px>
         </li>
         @endforeach
+      <?php endif; ?>
       </ul>
+      <?php endif; ?>
+      <?php if($post->path): ?>
       <?php endif; ?>
       <div id = "modal" class = "displayNone">
         <p id = "close">閉じる</p>
