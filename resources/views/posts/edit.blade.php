@@ -34,6 +34,14 @@
             <textarea name = "content" class="form-content" id="form-content" placeholder="詳細を入力してください"></textarea>
             <?php endif; ?>
           </div>
+          <div class="form-group">
+              <label class = "label-create" for="form-path">link</label>
+              <?php if(!empty($post->link)): ?> 
+              <input type = "text" name = "path" class="form-title" id="form-path" placeholder="1枚目の写真にリンクを貼ることができます" value="{{ $post->path }}">
+              <?php else: ?>
+              <input type = "text" name = "path" class="form-title" id="form-path" placeholder="1枚目の写真にリンクを貼ることができます">
+              <?php endif; ?>
+            </div>
           <div class = "image-up">
             @foreach($post->photos as $photo)
             <div class='image-top' >

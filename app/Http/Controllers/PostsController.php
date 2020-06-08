@@ -100,6 +100,7 @@ class PostsController extends Controller
         // dd($request);
         $post->title = $request->title;
         $post->content = $request->content;
+        $post->path = $request->path;
         $post->save();
         if(!empty($request->file('image'))){
 

@@ -142,17 +142,16 @@ $(function(){
     const modal = document.getElementById('modal');
     const modalImage = document.getElementById('modalImage');
     const close = document.getElementById('close')
-    
     for(let thumb of thumbs) {
       thumb.addEventListener('mouseover', () => {
         bigPic.src = thumb.src;
       })
     }
-    
-    bigPic.addEventListener('click', () => {
+    $(thumbs).on('click', function(){
+      let dataName = $(this).data('name');
       modal.classList.remove('displayNone');
-      modalImage.src = bigPic.src;
-    });
+      modalImage.src = dataName;
+    })
     
     close.addEventListener('click' , () => {
       modal.classList.add('displayNone');
