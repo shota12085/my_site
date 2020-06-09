@@ -50,8 +50,6 @@ class PostsController extends Controller
 
             foreach ($request->file('image') as $photo) {
                 $image = $photo->store('public');
-                // dd($image);
-                // photosメソッドにより、商品に紐付けられた画像を保存する
                 $post->photos()->create(['image'=> basename($image),'post_id' => $post->id]);
             }
         }

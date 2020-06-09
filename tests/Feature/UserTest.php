@@ -25,25 +25,17 @@ class UserTest extends TestCase
         $readUser = \App\User::where('name', 'laravel')->first();
         $this->assertNotNull($readUser);
         $this->assertTrue(\Hash::check('password', $readUser->password));
-
-        \App\User::where('email', 'laravel@test.com')->delete();
     }
 
     public function testUpdateUser()
     {
-        $user = new \App\User;
-        $user->name = "php";
-        $user->email = "php@test.com";
-        $user->password = \Hash::make('password');
-        $user->save();
-        $readUser = \App\User::where('name', 'php')->first();
-        $this->assertNotNull($readUser);
-        $this->assertTrue(\Hash::check('password', $readUser->password));
-
+        $user = \App\User::where('name','laravel')->first();
         $user->name = "PHP";
         $user->email = "PHP@test.com";
         $user->password = \Hash::make('password');
         $user->image = 'image';
+        $this->assertNotNull($user);
+        $this->assertTrue(\Hash::check('password', $user->password));
         $user->update();
     }
     public function testDeleteUser()
